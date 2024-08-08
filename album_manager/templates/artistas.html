@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Artistas{% endblock title %}
+{% block content %}
+    <div class="container my-5">
+        <h1 class="mb-4">Artistas</h1>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Detalles</th>
+                        {% if user.is_authenticated %}
+                        <th scope="col">Editar</th>
+                        <th scope="col">Eliminar</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for artista in artistas %}
+                    <tr>
+                        <td scope="row">{{ artista.id }}</td>
+                        <td>{{ artista.name }}</td>
+                        <td>
+                            <a href="mostrar_artista/{{ artista.id }}" class="btn btn-info btn-sm" title="Ver detalles">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                        </td>
+                        {% if user.is_authenticated %}
+                        <td>
+                            <a href="edit_artista/{{ artista.id }}" class="btn btn-warning btn-sm" title="Editar">
+                                <i class="fa-solid fa-pencil-alt"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="delete_artista/{{ artista.id }}" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Estás seguro de que quieres eliminar este artista?');">
+                                <i class="fa-solid fa-trash-alt"></i>
+                            </a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}
